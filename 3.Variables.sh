@@ -1,10 +1,12 @@
 #!/bin/bash
 
-A=Rakesh
-B=Priya
+MOVIES=("RRR" "DjTillu" "murari")
 
+# size of above array is 3.
+# index are 0,1,2
 
-echo "$A:: Hello $B, How are you?"
-echo "$B:: Hi $A, I am fine. How are you?"
-echo "$A: I am fine too. how is your work?"
-echo "$B:: not bad. I am thinking to upgrade to DevOps"
+# list always starts with 0.
+
+echo "First Movie is: ${MOVIES[0]}"
+echo "First Movie is: ${MOVIES[1]}"
+echo "First Movie is: ${MOVIES[@]}"
