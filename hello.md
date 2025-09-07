@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "i love you"
+echo "i love you2"
