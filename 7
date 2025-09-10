@@ -5,3 +5,7 @@ id -u
 TIMESTAMP=$(date +%F-%I-%M-%S-%P)
 
 echo $TIMESTAMP
+
+SCRIPT_NAME=$($0 | cut -d "." -f1)
+
+echo $SCRIPT_NAME
