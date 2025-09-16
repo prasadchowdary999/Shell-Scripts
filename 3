@@ -1,0 +1,40 @@
+#!/bin/bash
+
+ORG="daws-78s"
+DEST_DIR="./daws-78s-repos"
+
+# Create folder if doesn't exist
+mkdir -p "$DEST_DIR"
+cd "$DEST_DIR" || exit 1
+
+# Loop through pages (100 per page). Change if there are more pages.
+PAGE=1
+PER_PAGE=100
+
+while true; do
+  echo "Fetching page $PAGE ..."
+  # Call GitHub API to list repos
+  repos=$(curl -s "https://api.github.com/orgs/$ORG/repos?per_page=$PER_PAGE&page=$PAGE" \
+          | jq -r '.[].clone_url')
+
+  # If no repos, break
+  if [[ -z "$repos" || "$repos" == "null" ]]; then
+    break
+  fi
+
+  # Clone each
+  for repo in $repos; do
+    name=$(basename "$repo" .git)
+    if [[ -d "$name" ]]; then
+      echo "Already cloned $name, skipping ..."
+    else
+      echo "Cloning $repo"
+      git clone "$repo"
+    fi
+  done
+
+  # Next page
+  ((PAGE++))
+done
+
+echo "Done."
